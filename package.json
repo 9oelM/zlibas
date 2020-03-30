@@ -2,24 +2,17 @@
   "name": "zlibt",
   "version": "0.1.0",
   "description": "typescript zlib",
-  "main": "dist/zlibt.js",
+  "main": "lib/zlibt.js",
   "bin": "bin/bin.js",
   "types": "zlib_and_gzip.min.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --watch src --delay 1 --exec ts-node src/zlibtest.ts",
-    "build:prod": "webpack --config config/prod/config.js",
-    "build:gzip:prod": "webpack --config config/prod/config.gzip.js",
-    "build:zip:prod": "webpack --config config/prod/config.zip.js",
-    "build:zlib:prod": "webpack --config config/prod/config.zlib.js",
-    "build:raw:prod": "webpack --config config/prod/config.raw.js",
-    "build:dev": "webpack --config config/dev/dev.config.js --watch",
-    "build:gzip:dev": "webpack --config config/dev/dev.config.gzip.js --watch",
-    "build:zip:dev": "webpack --config config/dev/dev.config.zip.js --watch",
-    "build:zlib:dev": "webpack --config config/dev/dev.config.zlib.js --watch",
-    "build:raw:dev": "webpack --config config/dev/dev.config.raw.js --watch",
     "lint": "tslint --project tsconfig.json src/*",
-    "lint:fix": "tslint --project tsconfig.json src/* --fix"
+    "lint:fix": "tslint --project tsconfig.json src/* --fix",
+    "asbuild:untouched": "asc assembly/index.ts -b build/untouched.wasm -t build/untouched.wat --validate --sourceMap --debug",
+    "asbuild:optimized": "asc assembly/index.ts -b build/optimized.wasm -t build/optimized.wat --validate --sourceMap --optimize",
+    "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized"
   },
   "repository": {
     "type": "git",
@@ -30,26 +23,22 @@
     "gzip",
     "zip",
     "js",
-    "typescript"
+    "assemblyscript"
   ],
-  "author": "MadfishDT",
-  "license": "ISC",
+  "author": "Joshua Tenner <Tenner.Joshua@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/MadfishDT/zlibt/issues"
   },
-  "homepage": "https://madfishdt.github.io",
+  "homepage": "https://jtenner.github.io",
   "devDependencies": {
-    "codelyzer": "~4.5.0",
-    "dts-bundle-webpack": "^1.0.2",
-    "eslint": "^5.15.0",
-    "nodemon": "^1.18.11",
+    "prettier": "^2.0.2",
+    "nodemon": "^2.0.2",
+    "assemblyscript": "0.9.4-nightly.20200329",
     "npm-run-all": "^4.1.5",
-    "source-map-support": "^0.5.12",
-    "ts-loader": "^5.4.4",
-    "ts-node": "^8.1.0",
-    "typescript": "^3.4.5",
-    "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.1"
+    "typescript": "^3.8.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@assemblyscript/loader": "0.9.4-nightly.20200329"
+  }
 }

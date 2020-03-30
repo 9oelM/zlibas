@@ -1,4 +1,4 @@
-const Zlib = require('../dist/prod/zlibt');
+const Zlib = require("../dist/prod/zlibt");
 
 const datas = [1, 2, 3, 4, 5, 6];
 console.log(`input data: ${datas}`);

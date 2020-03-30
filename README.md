@@ -1,69 +1,72 @@
 # zlibt
-* **zlib js custom for typescript and javscript**
-* **zlib.js is ZLIB(RFC1950), DEFLATE(RFC1951), GZIP(RFC1952) and PKZIP implementation in JavaScript.**
+
+- **zlib js custom for typescript and javscript**
+- **zlib.js is ZLIB(RFC1950), DEFLATE(RFC1951), GZIP(RFC1952) and PKZIP implementation in JavaScript.**
 
 **original zlibjs code**
-* zlib min file: https://github.com/imaya/zlib.js.git
-* zlib typescript declaration: https://github.com/imaya/zlib.js/issues/47#issuecomment-351906524
 
-**zlibt is deprecated someday**
--
+- zlib min file: https://github.com/imaya/zlib.js.git
+- zlib typescript declaration: https://github.com/imaya/zlib.js/issues/47#issuecomment-351906524
+
+## **zlibt is deprecated someday**
+
 - use version2 https://www.npmjs.com/package/zlibt2
 - versino2 support full zlibjs features
 
-**install**
--
+## **install**
+
 ```
 npm inatall zlibt
 ```
 
-**support features:**
--
-* zlib_and_gzip.min.js functions support
-    * zlib.min.js: ZLIB Inflate + Deflate
-    * inflate.min.js: ZLIB Inflate
-    * deflate.min.js: ZLIB Deflate
-    * inflate_stream.min.js: ZLIB Inflate (stream mode)
-    * command line argument support(~0.0.2)
+## **support features:**
 
-**dependency:**
--
-* APIS
-    * there is no dependencies
+- zlib_and_gzip.min.js functions support
+  - zlib.min.js: ZLIB Inflate + Deflate
+  - inflate.min.js: ZLIB Inflate
+  - deflate.min.js: ZLIB Deflate
+  - inflate_stream.min.js: ZLIB Inflate (stream mode)
+  - command line argument support(~0.0.2)
 
-* CLI
-    * fs
-    * path
+## **dependency:**
 
-**Command Line Interface**
--
+- APIS
+
+  - there is no dependencies
+
+- CLI
+  - fs
+  - path
+
+## **Command Line Interface**
 
 ### CLI switch
 
 ```
-zlibt {{command}} {{inputFilePath}} {{outFilePath}} 
+zlibt {{command}} {{inputFilePath}} {{outFilePath}}
 ```
 
-| switch   |      value      |  default |
-|----------|:-------------:  |------:   |
-| command  |  'c', 'u'          | c: compress, u:uncompress|
-| inputFilePath  |  "./xxxxx/zzz.json"           |   "" |
-| outFilePath | "./xxxxx/zzz.z" |""|
-
+| switch        |       value        |                   default |
+| ------------- | :----------------: | ------------------------: |
+| command       |      'c', 'u'      | c: compress, u:uncompress |
+| inputFilePath | "./xxxxx/zzz.json" |                        "" |
+| outFilePath   |  "./xxxxx/zzz.z"   |                        "" |
 
 - example compress
+
 ```js
 zlibt c file.txt file.txt.z
 ```
 
 - example uncompress
+
 ```js
 zlibt u file.txt.z file.txt
 ```
 
-**ZLib APIS**
--
-* Zlib TypeScript
+## **ZLib APIS**
+
+- Zlib TypeScript
 
 ```
 import { Zlib } from 'zlibt';
@@ -77,7 +80,8 @@ import { Zlib } from 'zlibt';
     const inflate = new Zlib.Inflate(compress, null);
     const plain = inflate.decompress();
 ```
-* Zlib JavaScript
+
+- Zlib JavaScript
 
 ```
 var  Zlib = require('zlibt').Zlib;
@@ -92,7 +96,7 @@ var  Zlib = require('zlibt').Zlib;
     var plain = inflate.decompress();
 ```
 
-* Zlib Compress Options
+- Zlib Compress Options
 
 ```
 {
@@ -101,19 +105,22 @@ var  Zlib = require('zlibt').Zlib;
 }
 ```
 
-* Zlib Decompress Options
+- Zlib Decompress Options
 
 ```
 {
-    'index': number, // start position in input buffer 
+    'index': number, // start position in input buffer
     'bufferSize': number, // initial output buffer size
     'bufferType': Zlib.Inflate.BufferType, // buffer expantion type
     'resize': boolean, // resize buffer(ArrayBuffer) when end of decompression (default: false)
     'verify': boolean  // verify decompression result (default: false)
 }
 ```
+
 **GZip APIS**
-* GZip TypeScript
+
+- GZip TypeScript
+
 ```
 import { Zlib } from 'zlibt';
 
@@ -127,7 +134,8 @@ import { Zlib } from 'zlibt';
     const plain = inflate.decompress();
 ```
 
-* GZip JavaScript
+- GZip JavaScript
+
 ```
 var  Zlib = require('zlibt').Zlib;
 
@@ -140,8 +148,7 @@ var  Zlib = require('zlibt').Zlib;
     var plain = gunzip.decompress()
 ```
 
-
-* GZip Compress Options
+- GZip Compress Options
 
 ```
 {
