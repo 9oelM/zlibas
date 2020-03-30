@@ -1,45 +1,42 @@
-import { USE_TYPEDARRAY } from "./define/typedarray/hybrid";
 import { Adler32 } from "./adler32";
 import { RawDeflate, CompressionType } from "./rawdeflate";
 import { CompressionMethod } from "./define/compress";
 
+
 export class Deflate {
-  public static compress(input: Array<number> | Uint8Array, opt_params: any) {
+  public static compress(
+    input: StaticArray<u8>,
+  ) {
     return new Deflate(input, opt_params).compress();
   }
   public static DefaultBufferSize = 0x8000;
   //public CompressionType = RawDeflate.CompressionType;
 
-  private input: Array<number> | Uint8Array;
-  private output: Array<number> | Uint8Array;
-  private compressionType: number;
+  private output: StaticArray<u8>;
+
   private rawDeflate: RawDeflate;
   private rawDeflateOption: any = {};
 
-  constructor(input: Array<number> | Uint8Array, opt_params: any) {
+  constructor(
+    private input: StaticArray<u8>,
+    private compressionType: CompressionType = CompressionType.DYNAMIC,
+    private output: 
+    ) {
     this.input = input;
-    this.output = new (USE_TYPEDARRAY ? Uint8Array : Array)(
-      Deflate.DefaultBufferSize,
-    );
+    this.output = new StaticArray<u8>(Deflate.DefaultBufferSize);
     this.compressionType = CompressionType.DYNAMIC;
     this.rawDeflateOption = {};
 
-    // option parameters
-    if (opt_params) {
-      if (typeof opt_params["compressionType"] === "number") {
-        this.compressionType = opt_params["compressionType"];
-      }
-    }
 
     // copy options
-    if (opt_params) {
-      const props = Object.keys(opt_params);
-      for (let prop of props) {
-        this.rawDeflateOption[prop] = opt_params[prop];
-      }
-    }
+    // TODO: if (opt_params) {
+    // TODO:   const props = Object.keys(opt_params);
+    // TODO:   for (let prop of props) {
+    // TODO:     this.rawDeflateOption[prop] = opt_params[prop];
+    // TODO:   }
+    // TODO: }
     // set raw-deflate output buffer
-    this.rawDeflateOption["outputBuffer"] = this.output;
+    this.rawDeflateOption.outputBuffer = this.output;
     this.rawDeflate = new RawDeflate(this.input, this.rawDeflateOption);
   }
 

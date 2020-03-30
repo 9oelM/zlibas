@@ -1,8 +1,7 @@
-import { USE_TYPEDARRAY } from "./define/typedarray/hybrid";
 import { BitStream } from "./bitstream";
 import { Heap } from "./heap";
 
-export enum CompressionType {
+export const enum CompressionType {
   NONE = 0,
   FIXED = 1,
   DYNAMIC = 2,
