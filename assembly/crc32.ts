@@ -1,39 +1,37 @@
 export let ZLIB_CRC32_COMPACT = false;
 
-export class CRC32 {
-  constructor() {}
-  public static calc(data: StaticArray<u8>, pos: i32 = -1, length: i32 = -1) {
+export namespace CRC32 {
+  export function calc(data: StaticArray<u8>, pos: i32 = -1, length: i32 = -1): u32 {
     return CRC32.update(data, 0, pos, length);
   }
-  public static update(data: StaticArray<u8>, crc: u32, pos: i32, length: i32) {
+
+  export function update(data: StaticArray<u8>, crc: u32, pos: i32, length: i32): u32 {
     let table = CRC32.getTable();
     let i = pos === -1 ? (pos = 0) : pos;
     let il = length === -1 ? data.length : length;
     crc ^= 0xffffffff;
     // loop unrolling for performance
     for (i = il & 7; i--; ++pos) {
-      crc = (crc >>> 8) ^ table[(crc ^ data[pos]) & 0xff];
+      crc = (crc >>> 8) ^ unchecked(table[(crc ^ unchecked(data[pos])) & 0xff]);
     }
     for (i = il >> 3; i--; pos += 8) {
-      crc = (crc >>> 8) ^ table[(crc ^ data[pos]) & 0xff];
-      crc = (crc >>> 8) ^ table[(crc ^ data[pos + 1]) & 0xff];
-      crc = (crc >>> 8) ^ table[(crc ^ data[pos + 2]) & 0xff];
-      crc = (crc >>> 8) ^ table[(crc ^ data[pos + 3]) & 0xff];
-      crc = (crc >>> 8) ^ table[(crc ^ data[pos + 4]) & 0xff];
-      crc = (crc >>> 8) ^ table[(crc ^ data[pos + 5]) & 0xff];
-      crc = (crc >>> 8) ^ table[(crc ^ data[pos + 6]) & 0xff];
-      crc = (crc >>> 8) ^ table[(crc ^ data[pos + 7]) & 0xff];
+      crc = (crc >>> 8) ^ unchecked(table[(crc ^ data[pos]) & 0xff]);
+      crc = (crc >>> 8) ^ unchecked(table[(crc ^ data[pos + 1]) & 0xff]);
+      crc = (crc >>> 8) ^ unchecked(table[(crc ^ data[pos + 2]) & 0xff]);
+      crc = (crc >>> 8) ^ unchecked(table[(crc ^ data[pos + 3]) & 0xff]);
+      crc = (crc >>> 8) ^ unchecked(table[(crc ^ data[pos + 4]) & 0xff]);
+      crc = (crc >>> 8) ^ unchecked(table[(crc ^ data[pos + 5]) & 0xff]);
+      crc = (crc >>> 8) ^ unchecked(table[(crc ^ data[pos + 6]) & 0xff]);
+      crc = (crc >>> 8) ^ unchecked(table[(crc ^ data[pos + 7]) & 0xff]);
     }
     return crc ^ 0xffffffff;
   }
 
-  public static single(num: number, crc: number) {
+  export function single(num: i32, crc: i32) {
     let table = CRC32.getTable();
-    return (table[(num ^ crc) & 0xff] ^ (num >>> 8)) >>> 0;
+    return (unchecked(table[(num ^ crc) & 0xff]) ^ (num >>> 8)) >>> 0;
   }
-}
 
-export namespace CRC32 {
   // @ts-ignore
   // prettier-ignore
   @lazy
